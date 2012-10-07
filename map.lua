@@ -14,11 +14,10 @@ function map:init()
 	--map.tex = love.graphics.newImage('gfx/tile.png')
 	map.batch = gfx.newSpriteBatch(map.tex, map.w * map.h)
 	local pos = 1
-	for i = 0, i<map.tex:getWidth()/map.size do 
-		for j = 0, j<map.tex:getHeight()/map.size do
-			map.typTile[pos] = gfx.newQuad(i*map.size, j*map.size, map.size, map.size, map.tex:getWidth(), map.tex:getHeight())
+	for i = 0, map.tex:getHeight()/map.size -1 do 
+		for j = 0, map.tex:getWidth()/map.size -1 do
+			map.typTile[pos] = gfx.newQuad(j*map.size, i*map.size, map.size, map.size, map.tex:getWidth(), map.tex:getHeight())
 			pos = pos + 1
-			print (i," " ,j)
 		end
 
 	end
