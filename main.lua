@@ -1,4 +1,5 @@
 --require "map"
+--El diegolas se la come
 
 gfx = love.graphics
 fsy = love.filesystem
