@@ -22,14 +22,14 @@ function map:init()
 
 	end
 
---	for i = 0, map.w do
---		map.tile[i]={}
---		for j = 0, map.h do
---			map.tile[i][j] = 0
---		end
---	end
---
---	map.tile[1][1] = 1
+	for i = 0, map.w do
+		map.tile[i]={}
+		for j = 0, map.h do
+			map.tile[i][j] = 0
+		end
+	end
+
+	map.tile[1][1] = 1
 end
 
 function map:update()
@@ -50,7 +50,7 @@ function map:loadTypTile()
 end
 
 function map:draw(  )
-	--gfx.draw(map.batch, 0, 0)
+	gfx.draw(map.batch, 0, 0)
 end
 
 return map

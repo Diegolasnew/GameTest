@@ -22,6 +22,4 @@ end
 function ent:draw()
 end
 
-
-
 return ent
