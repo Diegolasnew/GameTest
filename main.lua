@@ -1,24 +1,19 @@
---require "map"
-
-
 gfx = love.graphics
 fsy = love.filesystem
+new = function (nombre)
+	return fsy.load(nombre .. ".lua")()
+end
+colorDef = {255,255,255,255}
 require("mapaTest")
 
 function love.load()
-	map = fsy.load('map.lua')()
-	map:init()
-	map.update()
-	tiempo = 0
-	i = 0
-	mapa:init()
-
-	mono = fsy.load('palo.lua')()
+	mono = new("palo")
 	mono:init(20, 30, 50, 50)
 	vx = 200
 	vy = 200
 	cf = 0
-	vcf = 100
+	vcf = 200
+	mapa:init()
 end	
 
 function love.update( dt )
@@ -38,16 +33,16 @@ function love.update( dt )
 		vcf = -vcf
 	end
 	cf = cf + vcf*dt
+	mapa:update()
 end	
 
 function love.draw()
-	--gfx.drawq(map.tex, map.typTile[1], 100, 100)
-	--gfx.drawq(map2.tex, map2.typTile[1], 150, 100)
-	--map:draw()
 	gfx.translate(-mono.x + (gfx.getWidth() - mono.ancho)/2, -mono.y + (gfx.getHeight()- mono.alto )/2)
+	gfx.setColor(cf, 255, cf,255)
+	gfx.rectangle( "fill", 300, 300, 1000, 500)
+	gfx.setColor(colorDef)
+	mapa:draw()
 	gfx.setColor(65, 50, 255,255)
 	gfx.rectangle( "fill", mono.x, mono.y, mono.ancho, mono.alto)
-	gfx.setColor(cf, 50, cf,255)
-	gfx.rectangle( "fill", 300, 300, 1000, 500)
 
 end	

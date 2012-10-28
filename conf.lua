@@ -1,5 +1,5 @@
 function love.conf( t )
-	t.modules.joystick = true --Habilita el uso del joystick (boolean)
+	t.modules.joystick = false --Habilita el uso del joystick (boolean)
 	t.modules.audio = true
 	t.modules.keyboard = true
 	t.modules.event = true
