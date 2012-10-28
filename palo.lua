@@ -1,10 +1,9 @@
-local palo = {
-	x = 0,
-	y = 0,
-	ancho = 0,
-	alto = 0,
-	quad = nil
-}
+local palo = {}
+palo.x = 0
+palo.y = 0
+palo.ancho = 0
+palo.alto = 0
+palo.quad = 0
 
 function palo:init(x, y, ancho, alto, quad)
 	palo.x = x

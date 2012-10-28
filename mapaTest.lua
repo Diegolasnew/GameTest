@@ -4,9 +4,15 @@ mapa = {}
 
 mapa.xVisible = 0
 mapa.yVisible = 0
-mapa.matrizEntidades = {}
+mapa.matrizEntidades = {} --todas las entidades puestas en una matriz para ver si colisionan con algo
+
+mapa.objetos = {} --objetos en general, no movibles 
+mapa.movibles = {} --todos los objetos movibles
+mapa.enemigos = {} -- todos los enemigos del mapa
+mapa.jugadores = {} -- todos los jugadores en el mapa
+
 mapa.sizeCelda = 100
-mapa.ancho = 100
+mapa.ancho = 70
 mapa.alto = 70
 mapa.tex = gfx.newImage('gfx/tex.png')
 mapa.tipoTex = {}
@@ -27,25 +33,22 @@ function mapa:init()
 	mapa.tipoTex[3] = gfx.newQuad(68, 51, 89, 95, mapa.tex:getWidth(), mapa.tex:getHeight())
 
 	pato = fsy.load("palo.lua")()
-	pato.x = 120
-	pato.y = 340
-	pato.ancho = 450
-	pato.alto = 550
+	
+	-- pato.x = 120
+	-- pato.y = 340
+	-- pato.ancho = 450
+	-- pato.alto = 550
 
-	pato2 = fsy.load("palo.lua")()
-	pato2.x = 120
-	pato2.y = 340
-	pato2.ancho = 300
-	pato2.alto = 609
+	-- pato2 = fsy.load("palo.lua")()
+	-- pato2.x = 120
+	-- pato2.y = 340
+	-- pato2.ancho = 300
+	-- pato2.alto = 609
 
-	mapa:ubicarObjeto(pato)
-	mapa:ubicarObjeto(pato2)
-
-	for i, v in pairs(mapa.matrizEntidades[1][5])do
-		print(v.ancho)	
-	end
-
-
+	-- mapa:ubicarObjeto(pato)
+	-- mapa:ubicarObjeto(pato2)	
+	-- screen_width = love.graphics.getWidth()
+	-- screen_height = love.graphics.getHeight()
 end
 
 function mapa:ubicarObjeto(objeto)
@@ -54,6 +57,11 @@ function mapa:ubicarObjeto(objeto)
 			mapa.matrizEntidades[math.floor(i)][math.floor(j)][objeto] = objeto
 		end
 	end
+	mapa.objetos[objeto]=objeto
+end
+
+function mapa:draw( )
+	
 end
 
 function mapa:update()
