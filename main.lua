@@ -14,6 +14,7 @@ function love.load()
 	cf = 0
 	vcf = 200
 	mapa:init()
+	debug = false
 end	
 
 function love.update( dt )
@@ -36,7 +37,19 @@ function love.update( dt )
 	mapa:update()
 end	
 
+function love.keyreleased(key)
+   if key == "f1" then
+         debug = not debug
+   end
+end
+
 function love.draw()
+
+	if debug then
+		gfx.setColor(0, 255, 0, 255)
+    	gfx.print("x = ".. mono.x, 10, 10)
+    	gfx.print("y = ".. mono.y, 10, 30)
+	end
 	gfx.translate(-mono.x + (gfx.getWidth() - mono.ancho)/2, -mono.y + (gfx.getHeight()- mono.alto )/2)
 	gfx.setColor(cf, 255, cf,255)
 	gfx.rectangle( "fill", 300, 300, 1000, 500)
