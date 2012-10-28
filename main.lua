@@ -3,7 +3,7 @@
 
 gfx = love.graphics
 fsy = love.filesystem
-
+require("mapaTest")
 
 function love.load()
 	map = fsy.load('map.lua')()
@@ -11,14 +11,15 @@ function love.load()
 	map.update()
 	tiempo = 0
 	i = 0
+	mapa:init()
 end	
 
 function love.update( dt )
-	map.update()
+	--map.update()
 end	
 
 function love.draw()
 	--gfx.drawq(map.tex, map.typTile[1], 100, 100)
 	--gfx.drawq(map2.tex, map2.typTile[1], 150, 100)
-	map:draw()
+	--map:draw()
 end	

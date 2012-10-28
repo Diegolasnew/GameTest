@@ -16,8 +16,8 @@ function mapa:init()
 
 	for i=0, mapa.ancho do
 			mapa.matrizEntidades[i]={}
-			for j=0, mapa.ancho do
-				mapa.matrizEntidades[i][j] = {objetos = {}}
+			for j=0, mapa.alto do
+				mapa.matrizEntidades[i][j] = {}
 			end
 	end	
 
@@ -26,15 +26,32 @@ function mapa:init()
 	mapa.tipoTex[2] = gfx.newQuad(0, 51, 68, 189, mapa.tex:getWidth(), mapa.tex:getHeight())
 	mapa.tipoTex[3] = gfx.newQuad(68, 51, 89, 95, mapa.tex:getWidth(), mapa.tex:getHeight())
 
+	pato = fsy.load("palo.lua")()
+	pato.x = 120
+	pato.y = 340
+	pato.ancho = 450
+	pato.alto = 550
 
+	pato2 = fsy.load("palo.lua")()
+	pato2.x = 120
+	pato2.y = 340
+	pato2.ancho = 300
+	pato2.alto = 609
+
+	mapa:ubicarObjeto(pato)
+	mapa:ubicarObjeto(pato2)
+
+	for i, v in pairs(mapa.matrizEntidades[1][5])do
+		print(v.ancho)	
+	end
 
 
 end
 
 function mapa:ubicarObjeto(objeto)
 	for i=objeto.x/mapa.sizeCelda, (objeto.x + objeto.ancho)/mapa.sizeCelda do
-		for i=objeto.y/mapa.sizeCelda, (objeto.y + objeto.alto)/mapa.sizeCelda do
-			
+		for j=objeto.y/mapa.sizeCelda, (objeto.y + objeto.alto)/mapa.sizeCelda do
+			mapa.matrizEntidades[math.floor(i)][math.floor(j)][objeto] = objeto
 		end
 	end
 end

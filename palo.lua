@@ -1,8 +1,8 @@
 local palo = {
-	x = 0
-	y = 0
-	ancho = 0
-	alto = 0
+	x = 0,
+	y = 0,
+	ancho = 0,
+	alto = 0,
 	quad = nil
 }
 
