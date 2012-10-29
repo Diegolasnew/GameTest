@@ -48,8 +48,8 @@ function mapa:init()
 end
 
 function mapa:ubicarObjeto(objeto)
-	for i=objeto.x/mapa.sizeCelda, (objeto.x + objeto.ancho)/mapa.sizeCelda do
-		for j=objeto.y/mapa.sizeCelda, (objeto.y + objeto.alto)/mapa.sizeCelda do
+	for i=objeto.cuadColi.x/mapa.sizeCelda, (objeto.cuadColi.x + objeto.cuadColi.ancho)/mapa.sizeCelda do
+		for j=objeto.cuadColi.y/mapa.sizeCelda, (objeto.cuadColi.y + objeto.cuadColi.alto)/mapa.sizeCelda do
 			mapa.matrizObjetos[math.floor(i)][math.floor(j)][objeto] = objeto
 		end
 	end
@@ -60,11 +60,11 @@ function mapa:update()
 	mapa.batch:bind()
     mapa.batch:clear()
     for i, v in pairs(mapa.objetos)do
-        mapa.batch:addq(v.quad, v.x, v.y)
+        mapa.batch:addq(v.quad, v.cuadColi.x, v.cuadColi.y)
   	end
     mapa.batch:unbind()
 end
 
 function mapa:draw( )
-	gfx.draw(mapa.batch, 0, 0)	
+	gfx.draw(mapa.batch, 0, 0)
 end
