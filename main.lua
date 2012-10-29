@@ -8,7 +8,7 @@ require("mapaTest")
 
 function love.load()
 	mono = new("objeto")
-	mono:init(100, 30, 50, 50, nil)
+	mono:init(100, 30, 10, 10, nil)
 	vx = 200
 	vy = 200
 	cf = 0

@@ -27,7 +27,7 @@ function mapa:init()
 			end
 	end	
 
-	mapa.batch = gfx.newSpriteBatch(mapa.tex, 30)
+	mapa.batch = gfx.newSpriteBatch(mapa.tex, 200)
 	mapa.tipoTex[1] = gfx.newQuad(0, 0, 327, 51, mapa.tex:getWidth(), mapa.tex:getHeight())
 	mapa.tipoTex[2] = gfx.newQuad(0, 51, 68, 189, mapa.tex:getWidth(), mapa.tex:getHeight())
 	mapa.tipoTex[3] = gfx.newQuad(68, 51, 89, 95, mapa.tex:getWidth(), mapa.tex:getHeight())
@@ -35,26 +35,30 @@ function mapa:init()
 	-- screen_width = love.graphics.getWidth()
 	-- screen_height = love.graphics.getHeight()
 
-	o1 = new("objeto")
-	x, y, w, h = mapa.tipoTex[1]:getViewport()
-	o1:init(80, 100, w, h, mapa.tipoTex[1])
-	mapa:ubicarObjeto(o1)
-	o2 = new("objeto")
-	x, y, w, h = mapa.tipoTex[2]:getViewport()
-	o2:init(10, 10, w, h, mapa.tipoTex[2])
-	mapa:ubicarObjeto(o2)
+	for i=0,10 do
+		o1 = new("objeto")
+		x, y, w, h = mapa.tipoTex[1]:getViewport()
+		o1:init(i*123, i*100, w, h, mapa.tipoTex[1])
+		mapa:ubicarObjeto(o1)
+		o2 = new("objeto")
+		x, y, w, h = mapa.tipoTex[2]:getViewport()
+		o2:init(i*50, i*60, w, h, mapa.tipoTex[2])
+		mapa:ubicarObjeto(o2)
 
-	o3 = new("objeto")
-	x, y, w, h = mapa.tipoTex[1]:getViewport()
-	o3:init(150, 300, w, h, mapa.tipoTex[1])
-	mapa:ubicarObjeto(o3)
+		o3 = new("objeto")
+		x, y, w, h = mapa.tipoTex[1]:getViewport()
+		o3:init(i*150, i*300, w, h, mapa.tipoTex[1])
+		mapa:ubicarObjeto(o3)
+	end
 
-	print(mapa.matrizObjetos[3][3][o3].cuadColi.y)
+	print(math.floor(0/100))
+	print(math.floor(1.4))
+
 end
 
 function mapa:ubicarObjeto(objeto)
-	for i=objeto.cuadColi.x/mapa.sizeCelda, (objeto.cuadColi.x + objeto.cuadColi.w)/mapa.sizeCelda do
-		for j=objeto.cuadColi.y/mapa.sizeCelda, (objeto.cuadColi.y + objeto.cuadColi.h)/mapa.sizeCelda do
+	for i=objeto.cuadColi.x/mapa.sizeCelda, ((objeto.cuadColi.x + objeto.cuadColi.w)/mapa.sizeCelda)+1 do
+		for j=objeto.cuadColi.y/mapa.sizeCelda, ((objeto.cuadColi.y + objeto.cuadColi.h)/mapa.sizeCelda)+1 do
 			mapa.matrizObjetos[math.floor(i)][math.floor(j)][objeto] = objeto
 			print( "x= ".. i.. " y="..j)
 		end
@@ -64,8 +68,8 @@ function mapa:ubicarObjeto(objeto)
 end
 
 function mapa:colisiona( x, y, w, h )
-	for i = x/mapa.sizeCelda, (x+w)/mapa.sizeCelda+1 do
-		for j = y/mapa.sizeCelda, (y+h)/mapa.sizeCelda+1 do
+	for i = x/mapa.sizeCelda, ((x+w)/mapa.sizeCelda) +1 do
+		for j = y/mapa.sizeCelda, ((y+h)/mapa.sizeCelda) +1 do
 			local q = {x = x, y = y, w = w, h = h}
 			for k, v in pairs(mapa.matrizObjetos[math.floor(i)][math.floor(j)]) do
 				if colision(q, v.cuadColi) then
