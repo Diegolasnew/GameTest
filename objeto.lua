@@ -11,8 +11,8 @@ objeto.quad = 0
 function objeto:init(x, y, ancho, alto, quad)
 	objeto.cuadColi.x = x
 	objeto.cuadColi.y = y
-	objeto.cuadColi.ancho = ancho
-	objeto.cuadColi.alto = alto
+	objeto.cuadColi.w = ancho
+	objeto.cuadColi.h = alto
 	objeto.quad = quad
 end
 

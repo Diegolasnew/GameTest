@@ -9,7 +9,6 @@ ent.sprites = {} --sprites de la entidad (hashmap <string, imgSprite>)
 ent.estados = {}
 ent.estado = "normal"
 ent.posSprite = 0
-ent.color = {255,255,255,255}
 --posibles estados de la entidad
 ent.estatico = true
 ent.activo = true

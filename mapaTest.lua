@@ -44,16 +44,37 @@ function mapa:init()
 	o2:init(10, 10, w, h, mapa.tipoTex[2])
 	mapa:ubicarObjeto(o2)
 
+	o3 = new("objeto")
+	x, y, w, h = mapa.tipoTex[1]:getViewport()
+	o3:init(150, 300, w, h, mapa.tipoTex[1])
+	mapa:ubicarObjeto(o3)
 
+	print(mapa.matrizObjetos[3][3][o3].cuadColi.y)
 end
 
 function mapa:ubicarObjeto(objeto)
-	for i=objeto.cuadColi.x/mapa.sizeCelda, (objeto.cuadColi.x + objeto.cuadColi.ancho)/mapa.sizeCelda do
-		for j=objeto.cuadColi.y/mapa.sizeCelda, (objeto.cuadColi.y + objeto.cuadColi.alto)/mapa.sizeCelda do
+	for i=objeto.cuadColi.x/mapa.sizeCelda, (objeto.cuadColi.x + objeto.cuadColi.w)/mapa.sizeCelda do
+		for j=objeto.cuadColi.y/mapa.sizeCelda, (objeto.cuadColi.y + objeto.cuadColi.h)/mapa.sizeCelda do
 			mapa.matrizObjetos[math.floor(i)][math.floor(j)][objeto] = objeto
+			print( "x= ".. i.. " y="..j)
 		end
 	end
+	print("------------------")
 	mapa.objetos[objeto]=objeto
+end
+
+function mapa:colisiona( x, y, w, h )
+	for i = x/mapa.sizeCelda, (x+w)/mapa.sizeCelda+1 do
+		for j = y/mapa.sizeCelda, (y+h)/mapa.sizeCelda+1 do
+			local q = {x = x, y = y, w = w, h = h}
+			for k, v in pairs(mapa.matrizObjetos[math.floor(i)][math.floor(j)]) do
+				if colision(q, v.cuadColi) then
+					return true, v
+				end
+			end
+		end	
+	end
+	return false
 end
 
 function mapa:update()
