@@ -35,41 +35,37 @@ function mapa:init()
 	-- screen_width = love.graphics.getWidth()
 	-- screen_height = love.graphics.getHeight()
 
-	for i=0,10 do
-		o1 = new("objeto")
-		x, y, w, h = mapa.tipoTex[1]:getViewport()
-		o1:init(i*123, i*100, w, h, mapa.tipoTex[1])
-		mapa:ubicarObjeto(o1)
-		o2 = new("objeto")
-		x, y, w, h = mapa.tipoTex[2]:getViewport()
-		o2:init(i*50, i*60, w, h, mapa.tipoTex[2])
-		mapa:ubicarObjeto(o2)
+--	for i=0,10 do
+		-- o1 = new("objeto")
+		-- x, y, w, h = mapa.tipoTex[2]:getViewport()
+		-- o1:init(123, 100, w, h, mapa.tipoTex[2])
+		-- mapa:ubicarObjeto(o1)
+	 	o2 = new("objeto")
+	 	x, y, w, h = mapa.tipoTex[2]:getViewport()
+	 	o2:init(50, 60, w, h, mapa.tipoTex[2])
+	 	mapa:ubicarObjeto(o2)
 
-		o3 = new("objeto")
-		x, y, w, h = mapa.tipoTex[1]:getViewport()
-		o3:init(i*150, i*300, w, h, mapa.tipoTex[1])
-		mapa:ubicarObjeto(o3)
-	end
-
-	print(math.floor(0/100))
-	print(math.floor(1.4))
-
+	-- 	o3 = new("objeto")
+	-- 	x, y, w, h = mapa.tipoTex[1]:getViewport()
+	-- 	o3:init(i*150, i*300, w, h, mapa.tipoTex[1])
+	-- 	mapa:ubicarObjeto(o3)
+	-- end
 end
 
 function mapa:ubicarObjeto(objeto)
-	for i=objeto.cuadColi.x/mapa.sizeCelda, ((objeto.cuadColi.x + objeto.cuadColi.w)/mapa.sizeCelda)+1 do
-		for j=objeto.cuadColi.y/mapa.sizeCelda, ((objeto.cuadColi.y + objeto.cuadColi.h)/mapa.sizeCelda)+1 do
+	for i=math.floor(objeto.cuadColi.x/mapa.sizeCelda), ((objeto.cuadColi.x + objeto.cuadColi.w)/mapa.sizeCelda) do
+		for j=math.floor(objeto.cuadColi.y/mapa.sizeCelda), ((objeto.cuadColi.y + objeto.cuadColi.h)/mapa.sizeCelda) do
 			mapa.matrizObjetos[math.floor(i)][math.floor(j)][objeto] = objeto
-			print( "x= ".. i.. " y="..j)
 		end
 	end
-	print("------------------")
 	mapa.objetos[objeto]=objeto
 end
 
+
+
 function mapa:colisiona( x, y, w, h )
-	for i = x/mapa.sizeCelda, ((x+w)/mapa.sizeCelda) +1 do
-		for j = y/mapa.sizeCelda, ((y+h)/mapa.sizeCelda) +1 do
+	for i = math.floor(x/mapa.sizeCelda), ((x+w)/mapa.sizeCelda) do
+		for j = math.floor(y/mapa.sizeCelda), ((y+h)/mapa.sizeCelda)  do
 			local q = {x = x, y = y, w = w, h = h}
 			for k, v in pairs(mapa.matrizObjetos[math.floor(i)][math.floor(j)]) do
 				if colision(q, v.cuadColi) then
