@@ -1,14 +1,17 @@
+
 gfx = love.graphics
 fsy = love.filesystem
 new = function (nombre)
 	return fsy.load(nombre .. ".lua")()
 end
 colorDef = {255,255,255,255}
+
 require("mapaTest")
+require("editor")
 
 function love.load()
 	mono = new("objeto")
-	mono:init(100, 30, 10, 10, nil)
+	mono:init(100, 30, 40, 40, nil)
 	vx = 200
 	vy = 200
 	cf = 0
@@ -16,10 +19,11 @@ function love.load()
 	mapa:init()
 	debug = false
 	colis = false
-
+	editor = false
+	translate = {1, 2}
 	q1 = {x = 120, y = 100, w = 50, h = 50}
 	q2 = {x = 100, y = 120, w = 100, h = 100}
-	print(colision(q1, q2))
+	
 end	
 
 function love.update( dt )
@@ -39,15 +43,40 @@ function love.update( dt )
 		vcf = -vcf
 	end
 	cf = cf + vcf*dt
+	translate = {-mono.cuadColi.x + (gfx.getWidth() - mono.cuadColi.w)/2, -mono.cuadColi.y + (gfx.getHeight()- mono.cuadColi.h )/2}
 	mapa:update()
 	colis = mapa:colisiona(mono.cuadColi.x, mono.cuadColi.y, mono.cuadColi.w, mono.cuadColi.h)
+	if editor then
+
+		updateEditor()
+	end
 end	
 
 function love.keyreleased(key)
    if key == "f1" then
          debug = not debug
-   end
+   end	
+   if key == "f2" then
+         editor = not editor
+   end	
 end
+
+
+function love.mousereleased( x, y, button )
+	if editor then
+		if button == "wd" then
+			posObjetoEditor = posObjetoEditor +1
+		end
+		if button == "wu" then
+			posObjetoEditor = posObjetoEditor -1
+		end
+		if button == "l" then
+			print("rele")
+			ponerObjeto = true
+		end
+	end
+end
+
 
 function love.draw()
 
@@ -58,14 +87,29 @@ function love.draw()
     	gfx.print("c = ".. tostring (colis), 10, 50)
     	gfx.print("x2 = ".. mono.cuadColi.x + mono.cuadColi.w, 10, 70)
     	gfx.print("y2 = ".. mono.cuadColi.y + mono.cuadColi.h, 10, 90)
+    	if editor then
+    		local x, y = love.mouse.getPosition()
+    		gfx.print("xMouseReal = ".. x, 160, 10)
+    		gfx.print("yMouseReal = ".. y, 160, 30)
+    		gfx.print("xMouseMapa = ".. x - translate[1], 160, 50)
+    		gfx.print("yMouseMapa = ".. y - translate[2], 160, 70)
+    		gfx.print("Objpos = ".. posObjetoEditor, 160, 90)
+    	end
+    else
+    	gfx.print("F1 para debug // F2 para modo editor", 10, 10)
 	end
-	gfx.translate(-mono.cuadColi.x + (gfx.getWidth() - mono.cuadColi.w)/2, -mono.cuadColi.y + (gfx.getHeight()- mono.cuadColi.h )/2)
+
+	gfx.translate(translate[1], translate[2])
 	--gfx.setColor(cf, 255, cf,255)
 	--gfx.rectangle( "fill", 300, 300, 1000, 500)
 	gfx.setColor(colorDef)
 	mapa:draw()
 	gfx.setColor(65, 50, 255,255)
 	gfx.rectangle( "fill", mono.cuadColi.x, mono.cuadColi.y, mono.cuadColi.w, mono.cuadColi.h)
+
+	if editor then
+		drawEditor()	
+	end
 end	
 
 function colision( c1, c2)
