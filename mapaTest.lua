@@ -34,22 +34,6 @@ function mapa:init()
 
 	-- screen_width = love.graphics.getWidth()
 	-- screen_height = love.graphics.getHeight()
-
-	for i=0,10 do
- 		local o1 = new("objeto")
-		local x, y, w, h = mapa.tipoTex[1]:getViewport()
-		o1:init(i*123, i*100, w, h, mapa.tipoTex[1])
-		mapa:ubicarObjeto(o1)
-	 	local o2 = new("objeto")
-	 	local x, y, w, h = mapa.tipoTex[2]:getViewport()
-	 	o2:init(i*50, i*60, w, h, mapa.tipoTex[2])
-	 	mapa:ubicarObjeto(o2)
-
-		local o3 = new("objeto")
-	 	local x, y, w, h = mapa.tipoTex[3]:getViewport()
-	 	o3:init(i*150, i*300, w, h, mapa.tipoTex[3])
-	 	mapa:ubicarObjeto(o3)
-	 end
 end
 
 function mapa:ubicarObjeto(objeto)

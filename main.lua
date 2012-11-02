@@ -11,7 +11,7 @@ require("editor")
 
 function love.load()
 	mono = new("objeto")
-	mono:init(100, 30, 40, 40, nil)
+	mono:init(100, 30, 40, 40, 0, nil)
 	vx = 200
 	vy = 200
 	cf = 0
@@ -23,7 +23,6 @@ function love.load()
 	translate = {1, 2}
 	q1 = {x = 120, y = 100, w = 50, h = 50}
 	q2 = {x = 100, y = 120, w = 100, h = 100}
-	
 end	
 
 function love.update( dt )
@@ -59,6 +58,12 @@ function love.keyreleased(key)
    if key == "f2" then
          editor = not editor
    end	
+   if key == "f5" then
+         guardarMapa()
+   end
+   if key == "f6" then
+         cargarMapa()
+   end
 end
 
 
@@ -102,6 +107,9 @@ function love.draw()
 	gfx.translate(translate[1], translate[2])
 	--gfx.setColor(cf, 255, cf,255)
 	--gfx.rectangle( "fill", 300, 300, 1000, 500)
+	gfx.setColor(255, 0, 0,255)
+	love.graphics.line(0,0,10000,0)
+	love.graphics.line(0,0,0,10000)
 	gfx.setColor(colorDef)
 	mapa:draw()
 	gfx.setColor(65, 50, 255,255)
@@ -117,4 +125,17 @@ function colision( c1, c2)
 		return c2.y < c1.y + c1.h
 	end
 	return false
+end
+
+function string:split(delimiter) --source internet :D
+	local result = {}
+	local from  = 1
+	local delim_from, delim_to = string.find( self, delimiter, from  )
+	while delim_from do
+		table.insert( result, string.sub( self, from , delim_from-1 ) )
+		from = delim_to + 1
+		delim_from, delim_to = string.find( self, delimiter, from  )
+	end
+	table.insert( result, string.sub( self, from  ) )
+	return result
 end
