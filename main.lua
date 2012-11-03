@@ -10,10 +10,10 @@ require("mapaTest")
 require("editor")
 
 function love.load()
+	initEditor()
 	mono = new("objeto")
-	mono:init(100, 30, 40, 40, 0, nil)
-	vx = 200
-	vy = 200
+	mono:init(100, 60, 30, 30, 0, nil)
+
 	cf = 0
 	vcf = 200
 	mapa:init()
@@ -26,18 +26,7 @@ function love.load()
 end	
 
 function love.update( dt )
-	if love.keyboard.isDown("up") then
-		mono.cuadColi.y = mono.cuadColi.y - vy*dt
-	end
-	if love.keyboard.isDown("down") then
-		mono.cuadColi.y = mono.cuadColi.y + vy*dt
-	end
-	if love.keyboard.isDown("left") then
-		mono.cuadColi.x = mono.cuadColi.x - vx*dt
-	end
-	if love.keyboard.isDown("right") then
-		mono.cuadColi.x = mono.cuadColi.x + vx*dt
-	end
+	mono:update(dt)
 	if cf >255 or cf<0 then
 		vcf = -vcf
 	end
@@ -62,7 +51,7 @@ function love.keyreleased(key)
          guardarMapa()
    end
    if key == "f6" then
-         cargarMapa()
+         cargarMapa("map")
    end
 end
 
@@ -131,6 +120,10 @@ function colision( c1, c2)
 		return c2.y < c1.y + c1.h
 	end
 	return false
+end
+
+function crearCuadrado( x, y, w, h )
+	return  { x = x, y = y, w = w, h = h}
 end
 
 function string:split(delimiter) --source internet :D

@@ -1,8 +1,11 @@
-batchEditor = gfx.newSpriteBatch(mapa.tex, 100)
 
-posObjetoEditor = 0
-ponerObjeto = false
-eliminarObjeto = false
+function initEditor(  )
+	batchEditor = gfx.newSpriteBatch(mapa.tex, 100)
+	posObjetoEditor = 0
+	ponerObjeto = false
+	eliminarObjeto = false
+end
+
 
 function guardarMapa(  )
 	cont = ""
@@ -13,7 +16,7 @@ function guardarMapa(  )
 end
 
 function cargarMapa( nombreMapa )
-	local data = love.filesystem.read("map.mep")
+	local data = love.filesystem.read(nombreMapa ..".mep")
 	local split = data:split("/")
 	for i, v in pairs(split) do
 		split2 = v:split(" ")
@@ -28,8 +31,8 @@ end
 
 function updateEditor()
 	local x, y = love.mouse.getPosition()
-	x = x - translate[1]
-	y = y - translate[2]
+	x = math.floor(x - translate[1])
+	y = math.floor(y - translate[2])
 	if (posObjetoEditor > table.getn(mapa.tipoTex)) then
 		posObjetoEditor = 0
 	end
