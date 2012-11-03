@@ -42,10 +42,27 @@ function mapa:ubicarObjeto(objeto)
 			mapa.matrizObjetos[math.floor(i)][math.floor(j)][objeto] = objeto
 		end
 	end
-	mapa.objetos[objeto]=objeto
+	mapa.objetos[table.getn(mapa.objetos)+1] = objeto
+
 end
 
-
+function mapa:eliminarObjeto( x, y )
+	for i=table.getn(mapa.objetos) , 1,-1 do
+		local obj = mapa.objetos[i]
+		if colision(obj.cuadColi, {x = x, y = y, w = 1, h = 1}) then
+			for k = i, table.getn(mapa.objetos) do
+				mapa.objetos[k] = mapa.objetos[k+1]
+				mapa.objetos[k+1] = nil
+			end
+			for i=math.floor(obj.cuadColi.x/mapa.sizeCelda), ((obj.cuadColi.x + obj.cuadColi.w)/mapa.sizeCelda) do
+				for j=math.floor(obj.cuadColi.y/mapa.sizeCelda), ((obj.cuadColi.y + obj.cuadColi.h)/mapa.sizeCelda) do
+					mapa.matrizObjetos[math.floor(i)][math.floor(j)][obj] = nil
+				end
+			end
+			break
+		end
+	end
+end
 
 function mapa:colisiona( x, y, w, h )
 	for i = math.floor(x/mapa.sizeCelda), ((x+w)/mapa.sizeCelda) do

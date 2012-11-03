@@ -2,6 +2,7 @@ batchEditor = gfx.newSpriteBatch(mapa.tex, 100)
 
 posObjetoEditor = 0
 ponerObjeto = false
+eliminarObjeto = false
 
 function guardarMapa(  )
 	cont = ""
@@ -52,6 +53,11 @@ function updateEditor()
 		end
 	else
 		ponerObjeto = false
+
+		if eliminarObjeto then
+			mapa:eliminarObjeto(x, y)
+		end
+		eliminarObjeto = false
 	end
 	batchEditor:unbind()
 	

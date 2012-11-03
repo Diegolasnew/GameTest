@@ -76,8 +76,10 @@ function love.mousereleased( x, y, button )
 			posObjetoEditor = posObjetoEditor -1
 		end
 		if button == "l" then
-			print("rele")
 			ponerObjeto = true
+		end
+		if button == "r" then
+			eliminarObjeto = true
 		end
 	end
 end
@@ -101,7 +103,11 @@ function love.draw()
     		gfx.print("Objpos = ".. posObjetoEditor, 160, 90)
     	end
     else
-    	gfx.print("F1 para debug // F2 para modo editor", 10, 10)
+    	gfx.setColor(255,100,100,255)
+    	gfx.print("F1 Debug ", 10, 10)
+    	gfx.print("F2 Editor ", 10, 30)
+    	gfx.print("F4 Guardar Mapa ", 10, 50)
+    	gfx.print("F5 Cargar Mapa ", 10, 70)
 	end
 
 	gfx.translate(translate[1], translate[2])
