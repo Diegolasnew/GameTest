@@ -16,7 +16,7 @@ function guardarMapa(  )
 end
 
 function cargarMapa( nombreMapa )
-	local data = love.filesystem.read(nombreMapa ..".mep")
+	local data = fsy.read(nombreMapa ..".mep")
 	local split = data:split("/")
 	for i, v in pairs(split) do
 		split2 = v:split(" ")
@@ -31,8 +31,8 @@ end
 
 function updateEditor()
 	local x, y = love.mouse.getPosition()
-	x = math.floor(x - translate[1])
-	y = math.floor(y - translate[2])
+	x = x - translate[1]
+	y = y - translate[2]
 	if (posObjetoEditor > table.getn(mapa.tipoTex)) then
 		posObjetoEditor = 0
 	end
@@ -43,8 +43,8 @@ function updateEditor()
 	batchEditor:clear()
 	if (posObjetoEditor ~= 0) then
 		local x1, y1, w, h = mapa.tipoTex[posObjetoEditor]:getViewport()		
-		x = x - (w/2)
-		y = y - (h/2)
+		x = math.floor(x - (w/2))
+		y = math.floor(y - (h/2))
 		batchEditor:setColor(255,255,255,200)
 		batchEditor:addq(mapa.tipoTex[posObjetoEditor], x, y)
 		if ponerObjeto then

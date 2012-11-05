@@ -13,7 +13,8 @@ function love.load()
 	initEditor()
 	mono = new("objeto")
 	mono:init(100, 60, 30, 30, 0, nil)
-
+	image = getArt("tou.mp3")
+	print(image)
 	cf = 0
 	vcf = 200
 	mapa:init()
@@ -73,6 +74,32 @@ function love.mousereleased( x, y, button )
 	end
 end
 
+function colision( c1, c2)
+	if (c1.x < c2.x + c2.w) and (c2.x < c1.x + c1.w) and (c1.y < c2.y + c2.h) then
+		return c2.y < c1.y + c1.h
+	end
+	return false
+end
+
+function crearCuadrado( x, y, w, h )
+	return  { x = x, y = y, w = w, h = h}
+end
+
+function string:split(delimiter) --source internet :D
+	local result = {}
+	local from  = 1
+	local delim_from, delim_to = string.find( self, delimiter, from  )
+	while delim_from do
+		table.insert( result, string.sub( self, from , delim_from-1 ) )
+		from = delim_to + 1
+		delim_from, delim_to = string.find( self, delimiter, from  )
+	end
+	table.insert( result, string.sub( self, from  ) )
+	return result
+
+
+end
+
 
 function love.draw()
 
@@ -115,26 +142,15 @@ function love.draw()
 	end
 end	
 
-function colision( c1, c2)
-	if (c1.x < c2.x + c2.w) and (c2.x < c1.x + c1.w) and (c1.y < c2.y + c2.h) then
-		return c2.y < c1.y + c1.h
-	end
-	return false
-end
-
-function crearCuadrado( x, y, w, h )
-	return  { x = x, y = y, w = w, h = h}
-end
-
-function string:split(delimiter) --source internet :D
-	local result = {}
-	local from  = 1
-	local delim_from, delim_to = string.find( self, delimiter, from  )
-	while delim_from do
-		table.insert( result, string.sub( self, from , delim_from-1 ) )
-		from = delim_to + 1
-		delim_from, delim_to = string.find( self, delimiter, from  )
-	end
-	table.insert( result, string.sub( self, from  ) )
-	return result
+function getArt(mp3)
+	local fbuf = io.open(mp3,"r")
+	local fbuf, size = love.filesystem.read( mp3, 10000000)
+	--fbuf:seek("set")
+	--local fdata = fbuf:read(10000000)
+	local beg = string.find(fbuf, "PNG")
+	--beg = string.sub(beg,beg_pos)
+	local fin = string.find(fbuf, "IEND")+7
+ 
+	img = string.sub(fbuf,beg-1,fin)
+	fsy.write("img.png", img)
 end
